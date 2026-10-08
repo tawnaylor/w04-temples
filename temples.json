@@ -1321,7 +1321,8 @@
   "name": "Montevideo Uruguay Temple",
   "location": "Carrasco, Montevideo, Uruguay",
   "dedicated": "18 March 2001"
-},{
+},
+{
   "_id": {
     "$oid": "61a921f6028954d4f0319f00"
   },
@@ -1330,7 +1331,8 @@
   "name": "Monticello Utah Temple",
   "location": "Monticello, Utah, United States",
   "dedicated": "26 July 1998"
-},{
+},
+{
   "_id": {
     "$oid": "61a921f6028954d4f0319f01"
   },
@@ -1447,15 +1449,6 @@
   "name": "Okinawa Japan Temple",
   "location": "Location Not Available",
   "dedicated": "Construction"
-},{
-  "_id": {
-    "$oid": "61a921f6028954d4f0319f0e"
-  },
-  "temple_id": 162,
-  "additionalInfo": false,
-  "name": "Oklahoma City Oklahoma Temple",
-  "location": "Yukon, Oklahoma, United States",
-  "dedicated": "30 July 2000"
 },{
   "_id": {
     "$oid": "61a921f6028954d4f0319f0f"
