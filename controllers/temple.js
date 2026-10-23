@@ -1,8 +1,7 @@
 const db = require('../models');
 const Temple = db.temples;
 
-const apiKey =
-  'Ezl0961tEpx2UxTZ5v2uKFK91qdNAr5npRlMT1zLcE3Mg68Xwaj3N8Dyp1R8IvFenrVwHRllOUxF0Og00l0m9NcaYMtH6Bpgdv7N';
+const apiKey = process.env.API_KEY;
 
 exports.create = (req, res) => {
   // #swagger.tags = ['Temples']
@@ -57,6 +56,12 @@ exports.findAll = (req, res) => {
   // #swagger.responses[200] = { description: 'List of temples', schema: [{ $ref: '#/definitions/Temple' }] }
   // #swagger.responses[401] = { description: 'Invalid or missing API key' }
   // #swagger.responses[500] = { description: 'Server error while retrieving temples' }
+  if (!apiKey) {
+    return res.status(500).send({
+      message: 'API key authentication is not configured.',
+    });
+  }
+
   if (req.header('apiKey') === apiKey) {
     Temple.find(
       {},
@@ -100,6 +105,12 @@ exports.findOne = (req, res) => {
   // #swagger.responses[401] = { description: 'Invalid or missing API key' }
   // #swagger.responses[500] = { description: 'Server error while retrieving the temple' }
   const temple_id = req.params.temple_id;
+  if (!apiKey) {
+    return res.status(500).send({
+      message: 'API key authentication is not configured.',
+    });
+  }
+
   if (req.header('apiKey') === apiKey) {
     Temple.find({ temple_id: temple_id })
       .then((data) => {

@@ -11,5 +11,13 @@ This API is intended for a team assignment in CSE 341 to learn how to use Swagge
 
 - Examine the routes and try a couple with your rest client.
 - If you try to run it, you'll get an authentication error from MongoDB.
-- Modify your .env file to include your mongoDB username and your db password.
+- Create a local `.env` file with your MongoDB connection string and an API key:
+
+  ```env
+  MONGODB_URI=your-mongodb-connection-string
+  API_KEY=your-api-key
+  ```
+
+  Keep `.env` private; it is excluded from version control. The `apiKey` header
+  must match `API_KEY` when calling the temple read endpoints.
 - Import the temples.json file into your mongoDB database in a new collection called temples.
