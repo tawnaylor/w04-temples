@@ -31,188 +31,80 @@
     },
     "/temples/": {
       "get": {
-        "tags": [
-          "Temples"
-        ],
-        "summary": "Get all temples",
         "description": "",
         "parameters": [
           {
             "name": "apiKey",
             "in": "header",
-            "description": "API key required to read temples",
-            "required": true,
             "type": "string"
           }
         ],
         "responses": {
-          "200": {
-            "description": "List of temples",
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/Temple"
-              },
-              "xml": {
-                "name": "main"
-              }
-            }
-          },
-          "401": {
-            "description": "Invalid or missing API key"
-          },
-          "500": {
-            "description": "Server error while retrieving temples"
+          "default": {
+            "description": ""
           }
-        },
-        "security": [
-          {
-            "apiKey": []
-          }
-        ]
+        }
       },
       "post": {
-        "tags": [
-          "Temples"
-        ],
-        "summary": "Create a temple",
         "description": "",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "description": "Temple to create",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/Temple"
-            }
-          }
-        ],
         "responses": {
-          "200": {
-            "description": "Success",
-            "schema": {
-              "$ref": "#/definitions/Temple"
-            }
-          },
-          "400": {
-            "description": "Temple name is required"
-          },
-          "500": {
-            "description": "Server error while creating the temple"
+          "default": {
+            "description": ""
           }
         }
       }
     },
     "/temples/{temple_id}": {
       "get": {
-        "tags": [
-          "Temples"
-        ],
-        "summary": "Get one temple by temple_id",
         "description": "",
         "parameters": [
           {
             "name": "temple_id",
             "in": "path",
             "required": true,
-            "type": "integer",
-            "description": "Numeric temple_id to retrieve"
+            "type": "string"
           },
           {
             "name": "apiKey",
             "in": "header",
-            "description": "API key required to read temples",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      },
+      "put": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "temple_id",
+            "in": "path",
             "required": true,
             "type": "string"
           }
         ],
         "responses": {
-          "200": {
-            "description": "The requested temple",
-            "schema": {
-              "$ref": "#/definitions/Temple"
-            }
-          },
-          "401": {
-            "description": "Invalid or missing API key"
-          },
-          "404": {
-            "description": "No temple with that temple_id"
-          },
-          "500": {
-            "description": "Server error while retrieving the temple"
-          }
-        },
-        "security": [
-          {
-            "apiKey": []
-          }
-        ]
-      },
-      "put": {
-        "tags": [
-          "Temples"
-        ],
-        "summary": "Update a temple by temple_id",
-        "description": "",
-        "parameters": [
-          {
-            "name": "temple_id",
-            "in": "path",
-            "required": true,
-            "type": "integer",
-            "description": "Numeric temple_id to update"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "description": "Temple fields to update",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/Temple"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Success"
-          },
-          "400": {
-            "description": "Request body is empty"
-          },
-          "404": {
-            "description": "No temple with that temple_id"
-          },
-          "500": {
-            "description": "Server error while updating the temple"
+          "default": {
+            "description": ""
           }
         }
       },
       "delete": {
-        "tags": [
-          "Temples"
-        ],
-        "summary": "Delete a temple by temple_id",
         "description": "",
         "parameters": [
           {
             "name": "temple_id",
             "in": "path",
             "required": true,
-            "type": "integer",
-            "description": "Numeric temple_id to delete"
+            "type": "string"
           }
         ],
         "responses": {
-          "200": {
-            "description": "Success"
-          },
-          "404": {
-            "description": "No temple with that temple_id"
-          },
-          "500": {
-            "description": "Server error while deleting the temple"
+          "default": {
+            "description": ""
           }
         }
       }

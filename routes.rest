@@ -1,0 +1,165 @@
+@baseUrl = http://localhost:8080
+# Must match API_KEY in your .env file
+@apiKey = PASTE_YOUR_API_KEY_HERE
+
+### Home route — expect 200
+GET {{baseUrl}}/
+
+### Get all temples — expect 200
+GET {{baseUrl}}/temples
+apiKey: {{apiKey}}
+
+### Get all temples without API key — expect 401
+GET {{baseUrl}}/temples
+
+### Get all temples with wrong API key — expect 401
+GET {{baseUrl}}/temples
+apiKey: wrong-key
+
+### Get one temple — expect 200
+GET {{baseUrl}}/temples/1
+apiKey: {{apiKey}}
+
+### Get one temple with non-numeric id — expect 400
+GET {{baseUrl}}/temples/abc
+apiKey: {{apiKey}}
+
+### Get one temple that does not exist — expect 404
+GET {{baseUrl}}/temples/99999
+apiKey: {{apiKey}}
+
+### Create a temple — expect 201
+POST {{baseUrl}}/temples
+Content-Type: application/json
+
+{
+  "temple_id": 9001,
+  "name": "Test Temple",
+  "location": "Rexburg, Idaho, United States",
+  "dedicated": "Announced",
+  "additionalInfo": false
+}
+
+### Create the same temple again — expect 409
+POST {{baseUrl}}/temples
+Content-Type: application/json
+
+{
+  "temple_id": 9001,
+  "name": "Test Temple",
+  "location": "Rexburg, Idaho, United States",
+  "dedicated": "Announced"
+}
+
+### Create with an unknown field — expect 201 (unknown fields are ignored)
+POST {{baseUrl}}/temples
+Content-Type: application/json
+
+{
+  "temple_id": 9003,
+  "name": "Extra Field Temple",
+  "location": "Somewhere",
+  "dedicated": "Announced",
+  "extra": "ignored"
+}
+
+### Delete the extra-field test temple — expect 200
+DELETE {{baseUrl}}/temples/9003
+
+### Create with missing required fields — expect 400
+POST {{baseUrl}}/temples
+Content-Type: application/json
+
+{
+  "location": "Nowhere"
+}
+
+### Create with wrong types and an unknown field — expect 400
+POST {{baseUrl}}/temples
+Content-Type: application/json
+
+{
+  "temple_id": "abc",
+  "name": 123,
+  "location": "Somewhere",
+  "dedicated": "Announced",
+  "additionalInfo": "yes",
+  "color": "blue"
+}
+
+### Create with text beyond field limits — expect 400
+POST {{baseUrl}}/temples
+Content-Type: application/json
+
+{
+  "temple_id": 9004,
+  "name": "This temple name is intentionally longer than the allowed one hundred characters so validation rejects it before saving the record.",
+  "location": "Somewhere",
+  "dedicated": "Announced"
+}
+
+### Create with invalid JSON — expect 400
+POST {{baseUrl}}/temples
+Content-Type: application/json
+
+{ "temple_id": 9002, "name": }
+
+### Update a temple — expect 200
+PUT {{baseUrl}}/temples/9001
+Content-Type: application/json
+
+{
+  "dedicated": "Construction",
+  "additionalInfo": true
+}
+
+### Attempt to change temple_id — expect 200 (ID remains unchanged)
+PUT {{baseUrl}}/temples/9001
+Content-Type: application/json
+
+{
+  "temple_id": 9002,
+  "name": "Temple ID Must Stay 9001"
+}
+
+### Original temple_id still exists — expect 200
+GET {{baseUrl}}/temples/9001
+apiKey: {{apiKey}}
+
+### New temple_id was not created by update — expect 404
+GET {{baseUrl}}/temples/9002
+apiKey: {{apiKey}}
+
+### Update with empty body — expect 400
+PUT {{baseUrl}}/temples/9001
+Content-Type: application/json
+
+{}
+
+### Update with invalid value — expect 400
+PUT {{baseUrl}}/temples/9001
+Content-Type: application/json
+
+{
+  "name": ""
+}
+
+### Update a temple that does not exist — expect 404
+PUT {{baseUrl}}/temples/99999
+Content-Type: application/json
+
+{
+  "name": "Ghost Temple"
+}
+
+### Delete a temple — expect 200
+DELETE {{baseUrl}}/temples/9001
+
+### Delete the same temple again — expect 404
+DELETE {{baseUrl}}/temples/9001
+
+### Delete with invalid id — expect 400
+DELETE {{baseUrl}}/temples/-5
+
+### Unknown route — expect 404
+GET {{baseUrl}}/does-not-exist
